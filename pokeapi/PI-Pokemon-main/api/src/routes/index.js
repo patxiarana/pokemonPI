@@ -1,11 +1,9 @@
 const { Router } = require('express');
-const {Pokemon, Tipo} = require('../db')
 const {Pokemones,getPokemons} = require('../metodos/PedidoApi')
 const {  PokeTI } = require('../metodos/pedidosTipo')
 const {PedidoHome} = require('../metodos/PedidoHome')
-const { Op } = require("sequelize");
-const axios = require("axios");
 const { filterPoke,filterID} =require("../metodos/filters")
+const  {Op} = require('sequelize')
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -20,10 +18,10 @@ router.get('/Pokemons', async (req,res) => {
   router.get('/pokemons/name', async (req,res) => {
     try{
     const  name  = req.query.name;
-    const respuesta = await  filterPoke(name) 
+    const respuesta = await  filterPoke(name)
 res.json(respuesta)
 
-   }catch(e){
+ }catch(e){
 console.log(e)
     }
 });
@@ -42,13 +40,19 @@ try {
 //POST /pokemons:
 //Recibe los datos recolectados desde el formulario controlado de la ruta de creación de pokemons por body
 //Crea un pokemon en la base de datos
+
+const { Pokemon, Tipo } = require('../db')
+
+
 router.post('/pokemons', async (req,res) =>{
 try{
-const {name, 
+const {
+  tipo,
+     name, 
      attack, 
-    defense, 
+    defense,
+    speed, hp, weigth, height,} = req.body
 
-    speed, hp, weigth, height,Tipo} = req.body
 const newPokemons = await Pokemon.create({
     name, 
     attack, 
@@ -57,20 +61,17 @@ const newPokemons = await Pokemon.create({
     hp, 
     weigth,
      height,
-     Tipo
-});
-const Tipoke = await Tipo.findAll({
-  where: { name: Tipo },
-});
-newPokemons.addTipo(Tipoke);
-res.json({"msg": "pokemon creado con exito"});
-} 
-
-catch(e){
-res.status(404)
-}
 })
-
+ 
+let poketype = await Tipo.findAll({
+  where: { name: tipo }
+});
+  newPokemons.addTipo(poketype);
+  res.send('pokemon creado')
+ }catch(e){
+res.status(404)
+}     
+})
 
 
 
@@ -81,12 +82,30 @@ const Types = await  PokeTI()
 })
 
 
+router.get('/prueba', async (req,res) => {
+  const pokeDB= await Pokemon.findAll({
+    attributes:["name"] ,
+
+      include: {
+      model: Tipo,
+      attributes: ["name"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+ 
+
+ res.json(pokeDB)
+
+});
+
 
 module.exports = router;
 
 //GET /pokemons:
 //Obtener un listado de los pokemons desde pokeapi.
-//Debe devolver solo los datos necesarios para la ruta principal
+//Debe devolver solo los datos necesarios para la ru ta principal
 
 
 
