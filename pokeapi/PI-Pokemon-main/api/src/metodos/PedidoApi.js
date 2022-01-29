@@ -1,7 +1,7 @@
 
 const axios = require("axios");
 const { Router } = require("express");
-const { Pokemon } = require("../db")
+const { Pokemon, Tipo } = require("../db")
 
 const getPokemons = async () => {
 
@@ -20,7 +20,7 @@ for (let i = 0; i < pokeArray.length; i++) {
       id: data.id,
       name: data.name,
       spriteSrc: data.sprites. front_default,
-      types: data.types.map((e) => e.type.name),
+      Tipos: data.types.map((e) => e.type.name),
       attack: data.stats[1].base_stat,
       defense: data.stats[2].base_stat,
       speed: data.stats[5].base_stat,
@@ -35,16 +35,59 @@ return infoPoke;
 catch(e){
 console.log(e)
 }}
-getPokemons()
+
 const getDB  = async ()  => {
-  const PokeBase = await Pokemon.findAll()
-  return  PokeBase;
- }
+  const pokeDB= await Pokemon.findAll({
+    include: {
+      model: Tipo,
+      attributes: ["name"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+ 
+
+return pokeDB;
+
+}  
+
+
+/*
+ const getDbAllInfo = async () => {
+  const pokeAux = await Pokemon.findAll({
+    include: {
+      model: Types,
+      attributes: ["name"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+  //console.log("ESTOY CONSOLOGEANDO--->",pokeDB[0].types)
+  const pokeDB = pokeAux.map((e) => {
+    return {
+      ...e.get(),
+      types: e.types.map((e) => e.name),
+    };
+  });
+  return pokeDB;
+};
+ */
+ 
+
+
+
+
+
+
+
+
  
 const Pokemones = async () => {
 
 const PokeaPI = await  getPokemons() 
-const BasePoke = await getDB()
+const BasePoke = await getDB ()
 
 const PokeTodos = [...PokeaPI, ... BasePoke]
 
