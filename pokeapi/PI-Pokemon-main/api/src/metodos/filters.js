@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { Pokemones} = require('../metodos/PedidoApi')
+const { Pokemones, Tipo} = require('../metodos/PedidoApi')
 const { Router } = require("express");
 
 
@@ -12,9 +12,6 @@ return DetailPoke
   return { "msg" : "no llega el nombre"}
 }
 }
-
-
-
 const filterID = async (id) =>{
 
   try{
