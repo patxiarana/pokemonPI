@@ -67,25 +67,52 @@ payload: json.data
 })
 }catch(e){
 
+}
+}
+}
+
+export function filtradoDeTipos(payload){
+
+return({
+type:"FILTRADO_TIPO",
+payload
+})
+}
+
+export function filtradoDataBase(payload){
+return ({
+
+type: "FILTRADO_DATABASE",
+payload
+
+})
+
+
+}
+
+
+export function OrderAlfabetico(payload){
+return({
+      type: "ORDEN_ALFABETICO",
+      payload
+    })
+
+}
+
+
+export function OrderFuerza(payload){
+
+
+  return({
+  type: "ORDEN_FUERZA",
+  payload
+
+
+  })
+
+
 
 
 
 
 }
-}
-}
-
-/*
-export const GET_ALL_POKEMONS = 'GET_ALL_POKEMONS';
-export const getAllPokemons = () =>{
- (axios.get('http://localhost:3001/Pokemons'))
-} */
-/*export const getAllPokemons = () => dispatch => {
-    axios.get('http://localhost:3001/Pokemons')
-    .then(json => {
-   dispatch({ type:  "GET_ALL_POKEMONS" , payload: json });
- });
- 
-};*/
-
-
