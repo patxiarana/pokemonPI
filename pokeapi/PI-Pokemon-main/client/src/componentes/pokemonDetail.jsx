@@ -26,10 +26,10 @@ const PokemonDetail = (props) => {
                     defense={e.defense} 
                     speed={e.speed} 
                     hp={e.hp}   
-                   weigth={e.weigth}
-                   height={e. height}
-                   Tipos={Array.isArray(e.Tipos) ? e.Tipos.map(el => el.name + '' ) : e.Tipos + ''  }
-                   spriteSrc={e.spriteSrc ? e.spriteSrc :  Logo}
+                    weigth={e.weigth}
+                    height={e. height}
+                    Tipos={ e.Tipos ? e.Tipos.map(el => el.name + '' ) : e.Types + ''  }
+                    spriteSrc={e.spriteSrc ? e.spriteSrc :  Logo}
                    />
                 
                     ))}
