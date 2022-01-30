@@ -5,7 +5,7 @@ const { Pokemon, Tipo  } = require('../db')
 const PedidoHome = async () =>{
 
   const DataBase= await Pokemon.findAll({
-    attributes:["name" , "id"] ,
+    attributes:["name" , "id", "attack"] ,
        include: {
       model: Tipo,
       attributes: ["name"],
@@ -25,8 +25,9 @@ const request = await axios('https://pokeapi.co/api/v2/pokemon?offset=20&limit=4
       Home.push({
       id: data.id,
     name : data.name,
+    attack: data.stats[1].base_stat,
     spriteSrc: data.sprites.front_default,
-    Tipos: data.types.map((e) => e.type.name),
+    Types: data.types.map((e) => e.type.name),
       })
      }
       allPokes = [...Home,...DataBase]
