@@ -2,6 +2,7 @@ const initialState = {
     pokemons:[],
     pokemonFilter:[],
     pokemon:[],
+    pokemonID:[],
     tipo:[]
 }
 const rootReducer = (state = initialState, action) => {
@@ -15,14 +16,14 @@ const rootReducer = (state = initialState, action) => {
           case "GET_NAME":
         return{
             ...state,
-            pokemon:action.payload,
+            pokemons:action.payload,
 
         };
 
         case 'GET_ID':
             return {
                 ...state,
-                pokemon:action.payload
+                pokemonID:action.payload
             }
             case 'CREATE_POKEMON':
                 return {...state,pokemons : state.pokemons.concat(action.payload)}
@@ -87,7 +88,19 @@ const rootReducer = (state = initialState, action) => {
            
 
             case "ORDEN_FUERZA":
-            let orderFU = action.payload === 'ascfu' ?
+
+                let orderFU = action.payload === 'descfu' ?
+                state.pokemons.sort(function(a,b){
+                    if(a.attack > b.attack){
+                     return -1
+                      } 
+                    if(b.attack > a.attack){
+                        return 1
+                    }
+                       return 0
+                      
+                  })
+                 :
             state.pokemons.sort(function(a,b){
                 if(a.attack > b.attack){
                     return 1;
@@ -97,19 +110,8 @@ const rootReducer = (state = initialState, action) => {
                 }
                 return 0;
             })
-            :
-            state.pokemons.sort(function(a,b){
-              if(a.attack > b.attack){
-               return -1
-                } 
-              if(b.attack > a.attack){
-                  return 1
-              }
-                 return 0
-                
-            })
-
-
+            
+        
 
 
 
