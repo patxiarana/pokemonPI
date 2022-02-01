@@ -4,18 +4,23 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getPoke } from "../actions"
 import Logo from '../componentes/img/logo.jpg'
+import "../componentes/syles.css/Detail.css"
+
 const PokemonDetail = (props) => {
+
+  
     let  params  = props.match.params.id
     const dispatch = useDispatch()
     useEffect(() => {
     dispatch(getPoke(params));
       });
 
-      const PokemonD = useSelector((state) => state.pokemon )
+      const PokemonD = useSelector((state) => state. pokemonID )
        
           
     return (
-        <div>   
+      <div className="cuerpo">
+        <div className="CardSpace">   
                     {
                     PokemonD?.map((e) =>(
                     <CardDetail  
@@ -28,12 +33,13 @@ const PokemonDetail = (props) => {
                     hp={e.hp}   
                     weigth={e.weigth}
                     height={e. height}
-                    Tipos={ e.Tipos ? e.Tipos.map(el => el.name + '' ) : e.Types + ''  }
+                    Tipos={  e.Tipos ? e.Tipos.map(el => el.name + '' ) : e.types ? e.types + '' :  e.Tipos1 }
                     spriteSrc={e.spriteSrc ? e.spriteSrc :  Logo}
                    />
                 
                     ))}
         </div>
+        </div>  
     );
 
 
