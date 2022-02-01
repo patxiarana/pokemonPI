@@ -2,32 +2,48 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { SearchName } from "../actions";
+import "../componentes/syles.css/SearchBar.css"
+
+export default function SearchBar() {
+    const dispatch = useDispatch();
+    const [name, setName] = useState("");
+  
+    function handleInputChange(e) {
+      e.preventDefault();
+      setName(e.target.value);
+      //console.log(name);
+    }
+  
+    function handleSubmit(e) {
+      e.preventDefault();
+      dispatch(SearchName(name));
+    }
+  
+    return (
+      <div className="searchBar">
+        <input
+          className="barra"
+          type="text"
+          placeholder="buscar..."
+          onChange={(e) => handleInputChange(e)}
+        />
+        <br />
+        <button type="submit" onClick={(e) => handleSubmit(e)} className="btnSearch">
+          BUSCAR
+        </button>
+      </div>
+    );
+  }
 
 
- export default function SearchBar(){
-  const dispatch = useDispatch;
-  const [name, setName] = useState('')
-
-    const handelchange= (e) =>{
-   e.preventDefault()
-    setName(e.target.value)
-}
-const handelsubmit = (e) =>{
-    e.preventDefault()
-    dispatch(SearchName(name))
-}
-
-return(
-<div>
-
-<input
-type="text"
-placeholder="buscar..."
-onChange={handelchange}
-/>
-<button type="submit" onClick={handelsubmit}>buscar</button>
 
 
-</div>
-) 
-};
+
+
+
+
+
+
+
+
+
