@@ -1,0 +1,51 @@
+
+.body{
+background-image: url('../img/mewLogo.jpg');
+height: 900px;
+
+}
+
+
+.paginado{
+text-align: center;
+justify-content: flex-start
+}
+
+.searchBar{
+text-align : center;
+
+}
+
+.pokemon_map{
+ text-align: center;
+display:inline-flex;
+flex-wrap: wrap;
+margin: 0; 
+padding: 0;
+}
+
+
+.crear-pokemon{
+position: relative;
+top: -170px; left: 1235px;
+}
+
+.btnreate{
+background-color: red;
+padding: 5px 10px ;
+border-radius: 60px;
+}
+
+
+.select{
+position:relative;
+top: -100px;
+padding: 5px 10px ;
+border-radius: 60px;
+}
+
+.select_value{
+background-color: rgb(121, 5, 5);
+
+}
+

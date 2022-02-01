@@ -1,0 +1,32 @@
+.img {
+
+background-image: url('../img/mewLogo.jpg');
+background-color: rgb(7, 5, 5);
+height: 700px;
+background-size:600px 600px;
+background-repeat: no-repeat;
+background-position: center top;
+border-color: black;
+}
+
+.home{
+    text-align: center;
+    background-color: black;
+    border-style: solid;
+    background-repeat: repeat;
+}
+
+.POKE-API{
+    font-size: 50px;
+    margin: 0; 
+    padding: 0;
+    position: relative;
+    top: 200px; left: 60px;
+    text-align:left; 
+    text-shadow: 
+        3px 3px 1px red,
+        5px 5px 2px yellow,
+        8px 8px 3px blue;
+      ;}
+
+      
