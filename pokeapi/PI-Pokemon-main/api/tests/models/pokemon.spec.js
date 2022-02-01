@@ -17,6 +17,10 @@ describe('Pokemon model', () => {
       it('should work when its a valid name', () => {
         Pokemon.create({ name: 'Pikachu' });
       });
+     it('should work when its a valid number',() =>{
+       Pokemon.create({attack:60})
+     })
+
     });
   });
 });
