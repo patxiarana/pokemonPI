@@ -1,12 +1,13 @@
-import React from "react";
+import React, { StrictMode } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { PokemonCreate } from "../actions";
 import { useEffect } from "react";
 import { getTypes } from "../actions";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
-
+import "../componentes/syles.css/CreatePokemon.css"
 
 
 let validate = (input) =>{
@@ -86,23 +87,18 @@ const CreatePokemon = () => {
 }
             
     return (
-        <div>
-       {
+      <StrictMode>
         
-
-
-       }
-
-
-    <form onSubmit={handelsubmit}>
-     <label>Name</label>
+       <div className="create">
+    <form onSubmit={handelsubmit} className="formulario">
+     <label className="names">Name</label>
      <input name = "name" value={input.name} onChange={handelchange}/>
      {
                 error.name && (
                   <p className="error">{error.name}</p>
                 )
               }  
-      <label>attack</label>
+      <label className="names">attack</label>
      <input name="attack" value = {input.attack}  onChange={handelchange}/>
      
      {
@@ -110,7 +106,7 @@ const CreatePokemon = () => {
                   <p className="error">{error.attack}</p>
                 )
               }  
-     <label>defense</label>
+     <label className="names">defense</label>
      <input name="defense" value = {input.defense}  onChange={handelchange}/>
               {
                 error.defense && (
@@ -118,14 +114,14 @@ const CreatePokemon = () => {
                 )
               }  
      
-     <label>speed</label>
+     <label className="names">speed</label>
      <input name="speed" value = {input.speed}  onChange={handelchange}/>
      {
                 error.speed && (
                   <p className="error">{error.speed}</p>
                 )
               }  
-     <label>weight</label>
+     <label className="names">weight</label>
      <input name= "weight" value = {input.weight}  onChange={handelchange}/>
      {
                 error.weight && (
@@ -133,21 +129,22 @@ const CreatePokemon = () => {
                 )
     
                 }
-     <label>height</label>
+     <label className="names">height</label>
      <input name= "height" value = {input.height}  onChange={handelchange}/>
      {
       error.height && (
         <p className="error">{error.height}</p>
       )
      }
-     <label>hp</label>
+     <label className="names">hp</label>
      <input name= "hp" value = {input.hp}  onChange={handelchange}/>
      {
       error.hp&& (
         <p className="error">{error.hp}</p>
       )
      }
-      <label>Tipos</label>
+    
+      <label className="names">Tipos</label>
      <div>
        <select onChange ={handelselect}>
         {
@@ -156,11 +153,15 @@ const CreatePokemon = () => {
          ))
          }
       </select>
-       <ul><li>{input.tipo.map(ty => ty + " , ")}</li></ul>                   
+       <ul><li className="tipos">{input.tipo.map(ty => ty + " , ")}</li></ul>                   
        </div>
          <button type="submit">Create</button>
         </form>
         </div>
+      <NavLink to={'/Home'}>
+      <button className="btnHome">HOME</button>
+       </NavLink>
+      </StrictMode>
     );
 };
 

@@ -5,13 +5,13 @@ import HomeCard from './HomeCard';
 import { getAllPokemons } from '../actions';
 import  SearchBar from '../componentes/SearchBar'
 import { NavLink } from 'react-router-dom';
-import Logo from '../componentes/img/logo.jpg'
+import Logo from '../componentes/img/ghost.jpg'
 import PaginadoComp from '../componentes/paginado'
 import { filtradoDeTipos } from '../actions';
 import { filtradoDataBase } from '../actions';
 import { OrderAlfabetico } from '../actions';
 import { OrderFuerza } from '../actions';
-
+import '../componentes/syles.css/Home.css'
 
 const HomePokemon = () => {
     
@@ -52,6 +52,7 @@ const HomePokemon = () => {
         dispatch(OrderFuerza(e.target.value))
         setPaginaActual(1)
         setOrden(`ordenado$ {e.target.value}`)
+        
        }
   
 
@@ -61,31 +62,32 @@ const HomePokemon = () => {
     return (
        <React.StrictMode>
 
-   <PaginadoComp
+    <div className='body'>
+
+    <PaginadoComp className= 'paginado' 
     PokemonPorPagina={PokemonPorPagina}
     allPokemons={allPokemons.length}
     paginado={paginado}
     />
 
-
+      <SearchBar className='searchBar' />
        <div>
-       <SearchBar/>
-        <div>
-       <select onChange={(e) => HandelAlfabetico(e)}>
+       <div className="select">
+       <select onChange={(e) => HandelAlfabetico(e)}className='select_value'>
        <option value = 'ascAL'>AscendenteAL</option> 
        <option value ='descAL'>DescendenteAL</option>
       </select>
       </div>
-   <div>
-      <select onChange={(e) => HandelOdenFuerza (e)}>
+      <div class="select">
+      <select onChange={(e) => HandelOdenFuerza (e)} className='select_value'>
        <option value = 'ascfu'>AscendenteFU</option> 
        <option value ='descfu'>DescendenteFU</option>
       </select>
      </div>
-       <div>
-       <select onChange={ (e) => HandelFilterTipo(e)}>
-       <option value = "Tipos">Todos</option> 
-       <option value = "norma">normal</option> 
+       <div class="content-select">
+       <select onChange={ (e) => HandelFilterTipo(e)}className='select_value'>
+       <option value = "todos">Todos</option> 
+       <option value = "normal">normal</option> 
        <option value = "flying">flying</option> 
        <option value = "ground">ground</option> 
        <option value = "rock">rock</option> 
@@ -107,16 +109,19 @@ const HomePokemon = () => {
        <option value = "electric">electric</option> 
        </select>
 
-       <select onChange={e => HandelfilterDT (e)}>
+       <select onChange={e => HandelfilterDT (e)}className='select_value'>
        <option value = 'creado'>Creado</option> 
        <option value ='existente'>Existente</option>
       </select>
      </div>
-  <NavLink to = {"/Home/createpokemon"}>CrearPokemon</NavLink>
+  <NavLink to = {"/Home/createpokemon"} className='crear-pokemon'>
+     <button className='btnreate'>crearPokemon</button>
+  </NavLink>
     
-    
+           <div className='pokemon_map'>
             {PokemonActual?.map((e) => (
-                    <HomeCard   
+
+                    <HomeCard  
                     id = {e.id}
                     key= {e.id}
                     name ={e.name}
@@ -125,8 +130,9 @@ const HomePokemon = () => {
                     />
                     
                     ))}
+         </div>
         </div>
-   
+        </div>
   
 
        
