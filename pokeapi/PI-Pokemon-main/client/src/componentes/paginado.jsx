@@ -1,5 +1,5 @@
 import  React  from 'react';
-
+import "../componentes/syles.css/paginado.css"
 
 
 export default function PaginadoComp ({PokemonPorPagina,allPokemons,paginado}) {
@@ -15,7 +15,7 @@ return (
          {  NumDpag &&
           NumDpag.map(Numero => (
              <li className='numero'>
-           <a onClick={() => paginado(Numero)}>{Numero}</a>
+           <a onClick={() => paginado(Numero)} className='numero1' >{Numero}</a>
            </li> 
           ))}
      </ul>
