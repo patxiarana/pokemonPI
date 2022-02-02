@@ -14,31 +14,58 @@ let validate = (input) =>{
   let error = {}
   var ExpRegSoloLetras="^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$"; 
   var ExpRegSoloNumeros="^[0-9]+$";
- if(input.name.match(ExpRegSoloLetras) === null ){
+
+   if(input.name.match(ExpRegSoloLetras) === null ){
    error.name = "solo se admiten letras como valores para el nombre";
-  }if(input.attack.match(ExpRegSoloNumeros) === null ){
-    error.attack='solo se admiten numeros como valor'
-  } if(input.speed.match(ExpRegSoloNumeros) === null ){
-    error.speed='solo se admiten numeros como valor'
-  }  if(input.defense.match(ExpRegSoloNumeros) === null ){
-    error.defense='solo se admiten numeros como valor'
-  }  if(input.weight.match(ExpRegSoloNumeros) === null ){
-    error.weight='solo se admiten numeros como valor'
-  }   if(input.height.match(ExpRegSoloNumeros) === null ){
-    error.height='solo se admiten numeros como valor'
-  } if(input.hp.match(ExpRegSoloNumeros) === null ){
-    error.hp='solo se admiten numeros como valor'
+ }
+ if(input.name.length <= 0){
+     error.name="no se admiten campos vacios"
+     }
+  if(input.attack.match(ExpRegSoloNumeros) === null ){
+   error.attack='solo se admiten numeros como valor'
   }
-
- 
-
-return error;
-
+   if(input.attack.length  <= 0 ){
+     error.attack ="no se admiten campos vacios"
+    }
+   if(input.speed.match(ExpRegSoloNumeros) === null ){
+    error.speed='solo se admiten numeros como valor'
+   }
+   if(input.speed.length <= 0){
+      error.speed="no se admiten campos vacios"
+    }
+   if(input.defense.match(ExpRegSoloNumeros) === null ){
+    error.defense='solo se admiten numeros como valor'
+   }
+    if(input.defense.length <= 0){
+      error.defense="no se admiten campos vacios"
+    }
+    if(input.weight.match(ExpRegSoloNumeros) === null ){
+    error.weight='solo se admiten numeros como valor'
+    }
+    if(input.weight.length <= 0){
+      error.weight = "no se admiten campos vacios"
+    }
+     if(input.height.match(ExpRegSoloNumeros) === null ){
+    error.height='solo se admiten numeros como valor'
+     }
+    if(input.height.length  <= 0){
+      error.height ="no se admiten campos vacios"
+    } 
+   if(input.hp.match(ExpRegSoloNumeros) === null ){
+    error.hp='solo se admiten numeros como valor'
+   } 
+   if (input.hp.length <= 0){
+     error.hp='no se admiten campos vacios'
+   }  
+  return error;
 }
+
+
+
+
 const CreatePokemon = () => {
    
-  
-  let dispatch = useDispatch()
+let dispatch = useDispatch()
    useEffect(() => {
     dispatch(getTypes());
       },[]);
@@ -46,30 +73,39 @@ const CreatePokemon = () => {
 
    const TypesPoke = useSelector((state) => state.tipo)
 
+  const arrayTipos = TypesPoke.map( (t)=> t)
+
    let [input, setInput] = useState({name:'', tipo:[], attack:'',
     defense:'',speed:'',weight:'',height:'',hp:'' })
     
     let [error, setErrors] = useState({});
-
- 
-
-       
-      
+   
+  
 
 
 
-
-
-  let handelchange = (e) => {
+    
+    let handelselect = (e) =>{
+     
+      setInput({
+        ...input,
+        tipo:[...input.tipo,e.target.value]
+        })
+    
+      }
+    let handelchange = (e) => {
         e.preventDefault()
         setInput( {...input, [e.target.name]: e.target.value})
       
         setErrors(validate(
           {...input, [e.target.name]: e.target.value}))
+        }
 
-      }
-    let handelsubmit = (e) => {
-        e.preventDefault()
+
+
+
+     let handelsubmit = (e) => {
+      e.preventDefault()
         if(Object.keys(error).length !== 0){
       return alert('error, algun valor debe ser invalido')   
     }
@@ -78,14 +114,6 @@ const CreatePokemon = () => {
       
     }
      
-    
-   let handelselect = (e) =>{
-  setInput({
-    ...input,
-    tipo:[...input.tipo,e.target.value]
- })
-}
-            
     return (
       <StrictMode>
         
@@ -148,12 +176,13 @@ const CreatePokemon = () => {
      <div>
        <select onChange ={handelselect}>
         {
-         TypesPoke?.map(ty =>(
-               <option value = {ty.name}>{ty.name}</option>    
+        arrayTipos?.map(t =>(
+               <option value = {t.name}>{t.name}</option>    
          ))
          }
       </select>
        <ul><li className="tipos">{input.tipo.map(ty => ty + " , ")}</li></ul>                   
+       
        </div>
          <button type="submit">Create</button>
         </form>
@@ -163,6 +192,7 @@ const CreatePokemon = () => {
        </NavLink>
       </StrictMode>
     );
+   
 };
 
 export default CreatePokemon;
